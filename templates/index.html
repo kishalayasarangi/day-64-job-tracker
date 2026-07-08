@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Job Tracker</title>
+  <link rel="stylesheet" href="/static/style.css"/>
+</head>
+<body>
+
+  <div class="container">
+    <h1 class="app-title">💼 Job Application Tracker</h1>
+    <p class="subtitle">Track internships and jobs · Day 64 of 120</p>
+
+    <!-- STATS -->
+    <div class="stats-row" id="statsRow"></div>
+
+    <!-- PIPELINE -->
+    <div class="pipeline" id="pipeline"></div>
+
+    <!-- CONTROLS -->
+    <div class="controls-bar">
+      <input type="text" id="searchInput"
+             placeholder="Search company or role..."
+             oninput="loadApplications()"/>
+      <select id="statusFilter" onchange="loadApplications()">
+        <option value="">All Status</option>
+        <option value="Applied">Applied</option>
+        <option value="OA">OA / Test</option>
+        <option value="Interview">Interview</option>
+        <option value="Offer">Offer</option>
+        <option value="Accepted">Accepted</option>
+        <option value="Rejected">Rejected</option>
+      </select>
+      <button class="btn-add" onclick="showAddForm()">+ Add Application</button>
+    </div>
+
+    <!-- ADD / EDIT FORM -->
+    <div class="app-form hidden" id="appForm">
+      <h3 id="formTitle">Add Application</h3>
+      <div class="form-grid">
+        <div class="form-group">
+          <label>Company *</label>
+          <input type="text" id="fCompany" placeholder="e.g. Google, ISRO..."/>
+        </div>
+        <div class="form-group">
+          <label>Role *</label>
+          <input type="text" id="fRole" placeholder="e.g. SWE Intern, Mech Intern..."/>
+        </div>
+        <div class="form-group">
+          <label>Location</label>
+          <input type="text" id="fLocation" placeholder="e.g. Bangalore, Remote"/>
+        </div>
+        <div class="form-group">
+          <label>Type</label>
+          <select id="fType">
+            <option value="Internship">Internship</option>
+            <option value="Full Time">Full Time</option>
+            <option value="Part Time">Part Time</option>
+            <option value="Contract">Contract</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Status</label>
+          <select id="fStatus">
+            <option value="Applied">Applied</option>
+            <option value="OA">OA / Test</option>
+            <option value="Interview">Interview</option>
+            <option value="Offer">Offer</option>
+            <option value="Accepted">Accepted</option>
+            <option value="Rejected">Rejected</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Applied Date</label>
+          <input type="date" id="fAppliedDate"/>
+        </div>
+        <div class="form-group">
+          <label>Deadline</label>
+          <input type="date" id="fDeadline"/>
+        </div>
+        <div class="form-group">
+          <label>Salary / Stipend</label>
+          <input type="text" id="fSalary" placeholder="e.g. ₹30,000/month"/>
+        </div>
+        <div class="form-group full">
+          <label>Job URL</label>
+          <input type="text" id="fUrl" placeholder="https://..."/>
+        </div>
+        <div class="form-group full">
+          <label>Notes</label>
+          <textarea id="fNotes" placeholder="Interview rounds, contacts, next steps..."></textarea>
+        </div>
+      </div>
+      <div class="form-btns">
+        <button class="btn-save" onclick="saveApplication()">Save</button>
+        <button class="btn-cancel" onclick="hideForm()">Cancel</button>
+      </div>
+    </div>
+
+    <!-- APPLICATIONS TABLE -->
+    <div class="table-card">
+      <div class="table-header">
+        <h3>Applications</h3>
+        <span id="appCount" style="color:#606070;font-size:0.8rem;"></span>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Company</th>
+              <th>Role</th>
+              <th>Type</th>
+              <th>Location</th>
+              <th>Status</th>
+              <th>Applied</th>
+              <th>Deadline</th>
+              <th>Salary</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="appsBody"></tbody>
+        </table>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- NOTES MODAL -->
+  <div class="modal-overlay hidden" id="notesModal"
+       onclick="if(event.target===this)closeNotes()">
+    <div class="notes-modal">
+      <div class="notes-header">
+        <h3 id="notesTitle">Notes</h3>
+        <button onclick="closeNotes()">✕</button>
+      </div>
+      <div id="notesContent"></div>
+    </div>
+  </div>
+
+  <footer>Day 64 of 120 · Kishalaya Sarangi · NIT Rourkela</footer>
+  <script src="/static/script.js"></script>
+</body>
+</html>
